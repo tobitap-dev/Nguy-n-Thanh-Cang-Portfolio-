@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nguyễn Thanh Cang - Digital Marketing Portfolio</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Tailwind Config cho màu xanh chủ đạo và Hiệu ứng -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4', 
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a', // Màu chính
+                            700: '#15803d', 
+                            800: '#166534',
+                            900: '#14532d', 
+                        }
+                    },
+                    animation: {
+                        'float': 'float 4s ease-in-out infinite',
+                        'float-delayed': 'float 4s ease-in-out 2s infinite',
+                        'grow-up': 'growUp 1.5s ease-out forwards',
+                        'fill-bar': 'fillBar 1.5s ease-out forwards',
+                        'toss-cap': 'tossCap 2s cubic-bezier(0.25, 1, 0.5, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        },
+                        growUp: {
+                            '0%': { height: '0%' },
+                            '100%': { height: 'var(--target-height)' }
+                        },
+                        fillBar: {
+                            '0%': { width: '0%' },
+                            '100%': { width: 'var(--target-width)' }
+                        },
+                        tossCap: {
+                            '0%, 100%': { transform: 'translate(-50%, 0) rotate(0deg)' },
+                            '40%': { transform: 'translate(-50%, -70px) rotate(25deg)' },
+                            '60%': { transform: 'translate(-50%, -70px) rotate(15deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Tùy chỉnh thanh cuộn */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f0fdf4; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #16a34a; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #15803d; 
+        }
+
+        /* Nền Pattern */
+        .hero-pattern {
+            background-color: #ffffff;
+            background-image: radial-gradient(#dcfce7 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* Dòng thời gian */
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: #16a34a;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+        @media (max-width: 768px) {
+            .timeline-container::before {
+                left: 31px;
+            }
+        }
+
+        /* Hiệu ứng 3D Hero Section */
+        .perspective-container {
+            perspective: 1200px;
+            transform-style: preserve-3d;
+        }
+        .bg-3d-panel {
+            transform: rotateY(-12deg) rotateX(5deg) translateZ(-40px);
+            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .parallelogram-3d {
+            transform: rotateY(-12deg) rotateX(5deg) translateZ(20px) skewX(-20deg);
+            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .avatar-3d {
+            transform: rotateY(-12deg) rotateX(5deg) translateZ(80px);
+            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .badge-3d {
+            transform: rotateY(-12deg) rotateX(5deg) translateZ(120px);
+            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        
+        /* Hover Effect 3D */
+        .perspective-container:hover .bg-3d-panel {
+            transform: rotateY(-5deg) rotateX(2deg) translateZ(-40px);
+        }
+        .perspective-container:hover .parallelogram-3d {
+            transform: rotateY(-5deg) rotateX(2deg) translateZ(30px) skewX(-20deg);
+        }
+        .perspective-container:hover .avatar-3d {
+            transform: rotateY(-5deg) rotateX(2deg) translateZ(100px) scale(1.02);
+        }
+        .perspective-container:hover .badge-3d {
+            transform: rotateY(-5deg) rotateX(2deg) translateZ(150px) scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 font-sans antialiased selection:bg-brand-500 selection:text-white overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-2xl font-bold text-brand-700 tracking-tight">NTC<span class="text-brand-500">.</span></a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#about" class="text-gray-600 hover:text-brand-600 px-3 py-2 rounded-md text-sm font-bold transition-colors">Giới thiệu</a>
+                        <a href="#skills" class="text-gray-600 hover:text-brand-600 px-3 py-2 rounded-md text-sm font-bold transition-colors">Kỹ năng</a>
+                        <a href="#experience" class="text-gray-600 hover:text-brand-600 px-3 py-2 rounded-md text-sm font-bold transition-colors">Kinh nghiệm</a>
+                        <a href="#education" class="text-gray-600 hover:text-brand-600 px-3 py-2 rounded-md text-sm font-bold transition-colors">Học vấn</a>
+                        <a href="#contact" class="bg-brand-600 text-white hover:bg-brand-700 px-5 py-2.5 rounded-full text-sm font-bold transition-all shadow-md hover:shadow-lg">Hợp tác ngay</a>
+                    </div>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-brand-600 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#about" class="block text-gray-600 hover:text-brand-600 hover:bg-brand-50 px-3 py-2 rounded-md text-base font-bold">Giới thiệu</a>
+                <a href="#skills" class="block text-gray-600 hover:text-brand-600 hover:bg-brand-50 px-3 py-2 rounded-md text-base font-bold">Kỹ năng</a>
+                <a href="#experience" class="block text-gray-600 hover:text-brand-600 hover:bg-brand-50 px-3 py-2 rounded-md text-base font-bold">Kinh nghiệm</a>
+                <a href="#education" class="block text-gray-600 hover:text-brand-600 hover:bg-brand-50 px-3 py-2 rounded-md text-base font-bold">Học vấn</a>
+                <a href="#contact" class="block text-brand-600 font-bold hover:bg-brand-50 px-3 py-2 rounded-md text-base">Hợp tác ngay</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-pattern pt-32 pb-20 lg:pt-48 lg:pb-32 min-h-[90vh] flex items-center relative overflow-hidden">
+        <div class="absolute top-20 right-0 -mr-20 w-72 h-72 bg-brand-100 rounded-full mix-blend-multiply filter blur-2xl opacity-70"></div>
+        <div class="absolute top-40 right-40 w-72 h-72 bg-brand-50 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-pulse"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-12">
+                <!-- BÊN TRÁI: Text -->
+                <div class="lg:w-[55%] text-center lg:text-left" data-aos="fade-right" data-aos-duration="1000">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 border border-brand-100 text-brand-600 font-bold tracking-wider uppercase text-xs mb-6 shadow-sm">
+                        <span class="relative flex h-3 w-3">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-500"></span>
+                        </span>
+                        Performance Marketing
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 leading-tight mb-4 tracking-tight">
+                        Hi, tôi là <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-brand-800">Nguyễn Thanh Cang</span>
+                    </h1>
+                    <h2 class="text-xl sm:text-2xl font-bold text-gray-600 mb-6 flex items-center justify-center lg:justify-start gap-3">
+                        Digital Marketing <i class="fa-solid fa-chart-simple text-brand-500 text-lg"></i>
+                    </h2>
+                    <p class="text-gray-600 mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed text-lg font-medium">
+                        Tối ưu hóa chiến dịch, thúc đẩy tăng trưởng và định vị thương hiệu bằng tư duy dữ liệu và sức mạnh của nội dung số.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#contact" class="bg-brand-600 text-white hover:bg-brand-700 px-8 py-3.5 rounded-full font-bold transition-all shadow-lg hover:shadow-brand-500/40 hover:-translate-y-1 flex items-center justify-center gap-2 text-lg">
+                            <i class="fa-solid fa-rocket"></i> Bắt đầu dự án
+                        </a>
+                        <a href="#" class="bg-white text-brand-700 border-2 border-brand-100 hover:border-brand-600 px-8 py-3.5 rounded-full font-bold transition-all hover:-translate-y-1 flex items-center justify-center gap-2 text-lg">
+                            <i class="fa-solid fa-file-pdf"></i> Tải CV PDF
+                        </a>
+                    </div>
+                </div>
+
+                <!-- BÊN PHẢI: Khối 3D Avatar -->
+                <div class="lg:w-[45%] flex justify-center lg:justify-end" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                    <div class="perspective-container relative w-full max-w-sm sm:max-w-md h-[450px] sm:h-[500px] flex items-end justify-center group cursor-pointer mt-10 lg:mt-0">
+                        <div class="bg-3d-panel absolute inset-y-10 inset-x-4 sm:inset-x-8 rounded-3xl overflow-hidden shadow-2xl border border-white/50">
+                            <div class="absolute inset-0 bg-gradient-to-br from-brand-900/80 to-blue-900/60 mix-blend-multiply z-10"></div>
+                            <div class="absolute inset-0 z-10 opacity-20" style="background-image: radial-gradient(white 1px, transparent 1px); background-size: 15px 15px;"></div>
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Data Analytics Background" class="absolute inset-0 w-full h-full object-cover">
+                        </div>
+                        <div class="parallelogram-3d absolute top-1/3 left-0 w-[110%] h-[120px] sm:h-[150px] bg-gradient-to-r from-brand-500/90 to-brand-400/90 shadow-[0_20px_40px_rgba(34,197,94,0.4)] z-20 border-t-2 border-b-2 border-white/40 backdrop-blur-md flex items-center overflow-hidden">
+                             <span class="text-white/30 font-black text-6xl whitespace-nowrap tracking-widest uppercase -rotate-2">Ads - SEO - Content - Analytics </span>
+                        </div>
+                        <div class="badge-3d absolute top-1/4 -left-4 sm:-left-8 z-40 bg-white/10 backdrop-blur-md border border-white/30 p-4 rounded-2xl shadow-2xl animate-float">
+                            <div class="flex items-center gap-3">
+                                <div class="bg-brand-500 w-10 h-10 rounded-full flex items-center justify-center text-white shadow-inner">
+                                    <i class="fa-solid fa-chart-pie text-lg"></i>
+                                </div>
+                                <div>
+                                    <p class="text-white/80 text-xs uppercase font-bold tracking-wider">Doanh thu cao nhất</p>
+                                    <p class="text-white font-black text-xl">+<span class="counter" data-target="347">0</span> Triệu/Th</p>
+                                </div>
+                            </div>
+                        </div>
+                        <img src="https://i.postimg.cc/zHD4Bmgr/H-NH-TH-3-X4.jpg" 
+                             onerror="this.src='https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'" 
+                             alt="Nguyễn Thanh Cang" 
+                             class="avatar-3d absolute bottom-0 z-30 w-[85%] sm:w-[75%] h-auto object-bottom drop-shadow-[0_35px_35px_rgba(0,0,0,0.8)] rounded-3xl sm:rounded-b-3xl">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About & Stats Section -->
+    <section id="about" class="py-20 bg-brand-50 relative overflow-hidden">
+        <div class="absolute top-10 left-0 w-full overflow-hidden opacity-5 pointer-events-none">
+            <h2 class="text-[150px] font-black text-gray-400 whitespace-nowrap">DIGITAL MARKETER</h2>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16" data-aos="fade-up">
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 text-center hover:-translate-y-1 transition-transform">
+                    <div class="w-12 h-12 mx-auto bg-brand-100 text-brand-600 rounded-full flex items-center justify-center mb-3">
+                        <i class="fa-solid fa-briefcase text-xl"></i>
+                    </div>
+                    <div class="text-4xl font-black text-gray-900 mb-1"><span class="counter" data-target="1">0</span>+</div>
+                    <div class="text-sm font-bold text-gray-500 uppercase tracking-wide">Năm Thực Chiến</div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 text-center hover:-translate-y-1 transition-transform">
+                    <div class="w-12 h-12 mx-auto bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-3">
+                        <i class="fa-solid fa-bullseye text-xl"></i>
+                    </div>
+                    <div class="text-4xl font-black text-gray-900 mb-1"><span class="counter" data-target="15">0</span>+</div>
+                    <div class="text-sm font-bold text-gray-500 uppercase tracking-wide">Chiến Dịch Ads</div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 text-center hover:-translate-y-1 transition-transform">
+                    <div class="w-12 h-12 mx-auto bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mb-3">
+                        <i class="fa-solid fa-pen-nib text-xl"></i>
+                    </div>
+                    <div class="text-4xl font-black text-gray-900 mb-1"><span class="counter" data-target="50">0</span>+</div>
+                    <div class="text-sm font-bold text-gray-500 uppercase tracking-wide">Ấn Phẩm / Content</div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 text-center hover:-translate-y-1 transition-transform">
+                    <div class="w-12 h-12 mx-auto bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mb-3">
+                        <i class="fa-solid fa-microscope text-xl"></i>
+                    </div>
+                    <div class="text-4xl font-black text-gray-900 mb-1">Q<span class="counter" data-target="4">0</span></div>
+                    <div class="text-sm font-bold text-gray-500 uppercase tracking-wide">Bài Báo Khoa Học</div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100" data-aos="fade-up">
+                <div class="flex flex-col md:flex-row">
+                    <div class="md:w-1/3 bg-gradient-to-br from-brand-600 to-brand-800 text-white p-10 flex flex-col justify-center items-center text-center relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-bl-full"></div>
+                        <h3 class="text-3xl font-black mb-4">Tầm Nhìn</h3>
+                        <p class="text-brand-50 leading-relaxed font-medium">
+                            "Kết hợp giữa tư duy phân tích số liệu nhạy bén và khả năng sáng tạo nội dung, nhằm mang lại tỷ lệ chuyển đổi cao nhất cho các chiến dịch."
+                        </p>
+                    </div>
+                    <div class="md:w-2/3 p-8 lg:p-12 flex flex-col justify-center">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-brand-50/50 p-6 rounded-2xl border border-brand-100/50">
+                            <div class="flex items-center gap-4">
+                                <div class="w-14 h-14 rounded-2xl bg-white shadow-md flex items-center justify-center text-brand-600">
+                                    <i class="fa-solid fa-location-dot text-2xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500 font-bold uppercase">Khu vực</p>
+                                    <p class="font-black text-gray-900 text-lg">Cần Thơ</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-14 h-14 rounded-2xl bg-white shadow-md flex items-center justify-center text-brand-600">
+                                    <i class="fa-solid fa-language text-2xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500 font-bold uppercase">Ngoại ngữ</p>
+                                    <p class="font-black text-gray-900 text-lg">Tiếng Anh (Level 6)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-brand-600 font-bold tracking-wider uppercase text-sm mb-2 block">Năng lực cốt lõi</span>
+                <h2 class="text-3xl md:text-5xl font-black text-gray-900 mb-4">Biểu Đồ Kỹ Năng</h2>
+                <div class="w-24 h-1.5 bg-brand-600 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <!-- Hard Skills (Progress Bars) -->
+                <div data-aos="fade-right">
+                    <h3 class="text-2xl font-black text-gray-900 mb-8 flex items-center gap-3">
+                        <span class="w-10 h-10 rounded-lg bg-brand-100 flex items-center justify-center text-brand-600"><i class="fa-solid fa-chart-bar"></i></span> Chuyên Môn Kỹ Thuật
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <!-- Skill 1 -->
+                        <div class="skill-bar-container">
+                            <div class="flex justify-between items-end mb-2">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-bullhorn text-blue-500"></i>
+                                    <span class="font-bold text-gray-800">Digital Ads (Facebook, Tiktok, Zalo OA)</span>
+                                </div>
+                                <span class="font-black text-brand-600">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-100 rounded-full h-3">
+                                <div class="bg-gradient-to-r from-brand-400 to-brand-600 h-3 rounded-full stat-bar" style="--target-width: 90%;"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Skill 2 -->
+                        <div class="skill-bar-container">
+                            <div class="flex justify-between items-end mb-2">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-chart-pie text-brand-500"></i>
+                                    <span class="font-bold text-gray-800">Phân Tích Dữ Liệu (Google Analytics, ROI)</span>
+                                </div>
+                                <span class="font-black text-brand-600">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-100 rounded-full h-3">
+                                <div class="bg-gradient-to-r from-brand-400 to-brand-600 h-3 rounded-full stat-bar" style="--target-width: 85%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill 3 -->
+                        <div class="skill-bar-container">
+                            <div class="flex justify-between items-end mb-2">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-pen-nib text-orange-500"></i>
+                                    <span class="font-bold text-gray-800">Content Marketing & SEO</span>
+                                </div>
+                                <span class="font-black text-brand-600">80%</span>
+                            </div>
+                            <div class="w-full bg-gray-100 rounded-full h-3">
+                                <div class="bg-gradient-to-r from-brand-400 to-brand-600 h-3 rounded-full stat-bar" style="--target-width: 80%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill 4 -->
+                        <div class="skill-bar-container">
+                            <div class="flex justify-between items-end mb-2">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-palette text-purple-500"></i>
+                                    <span class="font-bold text-gray-800">Thiết Kế Đồ Họa (Ps, Ai, Canva)</span>
+                                </div>
+                                <span class="font-black text-brand-600">75%</span>
+                            </div>
+                            <div class="w-full bg-gray-100 rounded-full h-3">
+                                <div class="bg-gradient-to-r from-brand-400 to-brand-600 h-3 rounded-full stat-bar" style="--target-width: 75%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soft Skills -->
+                <div data-aos="fade-left">
+                    <h3 class="text-2xl font-black text-gray-900 mb-8 flex items-center gap-3">
+                        <span class="w-10 h-10 rounded-lg bg-brand-100 flex items-center justify-center text-brand-600"><i class="fa-solid fa-users"></i></span> Kỹ Năng Mềm
+                    </h3>
+                    
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
+                        <div class="bg-brand-50 rounded-xl p-4 text-center border border-brand-100 hover:bg-brand-600 hover:text-white transition-colors group">
+                            <i class="fa-solid fa-comments text-2xl text-brand-500 group-hover:text-white mb-2"></i>
+                            <p class="font-bold text-sm">Giao tiếp</p>
+                        </div>
+                        <div class="bg-brand-50 rounded-xl p-4 text-center border border-brand-100 hover:bg-brand-600 hover:text-white transition-colors group">
+                            <i class="fa-solid fa-people-group text-2xl text-brand-500 group-hover:text-white mb-2"></i>
+                            <p class="font-bold text-sm">Làm việc nhóm</p>
+                        </div>
+                        <div class="bg-brand-50 rounded-xl p-4 text-center border border-brand-100 hover:bg-brand-600 hover:text-white transition-colors group">
+                            <i class="fa-solid fa-lightbulb text-2xl text-brand-500 group-hover:text-white mb-2"></i>
+                            <p class="font-bold text-sm">Sáng tạo</p>
+                        </div>
+                        <div class="bg-brand-50 rounded-xl p-4 text-center border border-brand-100 hover:bg-brand-600 hover:text-white transition-colors group">
+                            <i class="fa-solid fa-clock text-2xl text-brand-500 group-hover:text-white mb-2"></i>
+                            <p class="font-bold text-sm">Quản lý T.Gian</p>
+                        </div>
+                        <div class="bg-brand-50 rounded-xl p-4 text-center border border-brand-100 hover:bg-brand-600 hover:text-white transition-colors group">
+                            <i class="fa-solid fa-person-chalkboard text-2xl text-brand-500 group-hover:text-white mb-2"></i>
+                            <p class="font-bold text-sm">Thuyết trình</p>
+                        </div>
+                        <div class="bg-brand-50 rounded-xl p-4 text-center border border-brand-100 hover:bg-brand-600 hover:text-white transition-colors group">
+                            <i class="fa-solid fa-bolt text-2xl text-brand-500 group-hover:text-white mb-2"></i>
+                            <p class="font-bold text-sm">Học hỏi nhanh</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section (Thiết kế Card Profile LinkedIn chuẩn chuyên nghiệp) -->
+    <section id="experience" class="py-24 bg-gray-50 border-t border-gray-100 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <span class="text-brand-600 font-bold tracking-wider uppercase text-sm mb-2 block">Dấu ấn nghề nghiệp</span>
+                <h2 class="text-3xl md:text-5xl font-black text-gray-900 mb-4">Kinh Nghiệm Thực Chiến</h2>
+                <div class="w-24 h-1.5 bg-brand-600 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="relative timeline-container max-w-5xl mx-auto">
+                
+                <!-- Job 1: Thương Mại 65 -->
+                <div class="relative z-10 mb-20 flex md:justify-between items-center w-full right-timeline group" data-aos="fade-up">
+                    <div class="order-1 md:w-5/12 hidden md:block text-right pr-10">
+                        <p class="text-brand-600 font-black text-2xl">1/2025 - 5/2025</p>
+                        <p class="text-gray-500 font-bold uppercase mt-1">Performance Marketing</p>
+                    </div>
+                    <div class="z-20 flex items-center order-1 bg-brand-600 shadow-[0_0_0_4px_rgba(34,197,94,0.2)] w-14 h-14 rounded-full md:mx-auto absolute left-[4px] md:relative md:left-0 justify-center group-hover:scale-110 group-hover:bg-brand-500 transition-all duration-300">
+                        <i class="fa-solid fa-chart-line text-white text-xl"></i>
+                    </div>
+                    
+                    <div class="order-1 w-full pl-16 md:pl-0 md:w-5/12 ml-0">
+                        <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300 relative">
+                            <!-- Ảnh bìa Công ty (Banner Cover) -->
+                            <div class="h-32 overflow-hidden relative">
+                                <img src="https://scontent.fsgn2-6.fna.fbcdn.net/v/t39.30808-6/536281369_1326479255921570_4960425654166483918_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=1d70fc&_nc_ohc=qyxEWgM94boQ7kNvwEUw52A&_nc_oc=AdrafGrXaFCHaWpSzTPL84WRYvMkndISiDvieBZoLrdJpLOrW-vwWUTc2gEVaUyKGUZNpI_WsGBNVsaY8j_W4_vT&_nc_zt=23&_nc_ht=scontent.fsgn2-6.fna&_nc_gid=7W7KJhu0vLUxDCKs7GQb7g&_nc_ss=7a3a8&oh=00_Af2a4sKWsw9VkYHea5l0j-tQrrjKwmD7RkovoM6g0xffeg&oe=69ECFF30" alt="Thương Mại 65 Banner" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent"></div>
+                            </div>
+                            
+                            <!-- Logo Công ty (Avatar Badge) đè lên bìa -->
+                            <div class="absolute top-20 left-6 md:left-8 z-10 group-hover:-translate-y-1 transition-transform duration-300">
+                                <div class="w-20 h-20 bg-white rounded-2xl shadow-lg border-[3px] border-white flex items-center justify-center overflow-hidden">
+                                    <span class="font-black text-2xl text-gray-800 tracking-tighter">65<span class="text-brand-500">.</span></span>
+                                </div>
+                            </div>
+                            
+                            <!-- Nội dung thẻ -->
+                            <div class="pt-14 pb-6 px-6 md:px-8">
+                                <h4 class="font-black text-gray-900 text-xl mb-1">Công ty Thương Mại 65</h4>
+                                <h3 class="font-bold text-brand-600 text-sm uppercase mb-5">Chuyên viên Sales - Marketing</h3>
+                                
+                                <!-- Highlight Block -->
+                                <div class="bg-brand-50 border border-brand-100 rounded-2xl p-5 mb-6 relative overflow-hidden">
+                                    <div class="flex justify-between items-end mb-3 relative z-10">
+                                        <div>
+                                            <p class="text-brand-700 font-bold text-sm uppercase mb-1">Doanh Thu Kỷ Lục</p>
+                                            <div class="flex items-end gap-1">
+                                                <span class="text-4xl font-black text-brand-600"><span class="counter" data-target="347">0</span></span>
+                                                <span class="text-lg font-bold text-gray-600 mb-1">Tr/Tháng</span>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="bg-brand-500 text-white text-xs font-bold px-2 py-1 rounded-md inline-flex items-center gap-1">
+                                                <i class="fa-solid fa-arrow-up"></i> ROAS
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-end gap-2 h-16 w-full border-b border-gray-200 pb-1 relative z-10">
+                                        <div class="w-1/4 bg-brand-200 rounded-t-md stat-bar" style="--target-height: 30%"></div>
+                                        <div class="w-1/4 bg-brand-300 rounded-t-md stat-bar" style="--target-height: 50%"></div>
+                                        <div class="w-1/4 bg-brand-400 rounded-t-md stat-bar" style="--target-height: 75%"></div>
+                                        <div class="w-1/4 bg-brand-600 rounded-t-md stat-bar relative" style="--target-height: 100%">
+                                            <div class="absolute -top-6 left-1/2 -translate-x-1/2 text-xs font-bold text-brand-600">Max</div>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid fa-sack-dollar absolute -right-4 -bottom-4 text-7xl text-brand-500/10"></i>
+                                </div>
+
+                                <ul class="space-y-4 text-gray-700 text-[15px] leading-relaxed">
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-check-circle text-brand-500 mt-1 text-lg"></i> 
+                                        <span><strong>Thiết lập & tối ưu chiến dịch Facebook Ads</strong> với ngân sách >15 triệu/tháng, mang về doanh thu vượt trội từ kênh online.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-check-circle text-brand-500 mt-1 text-lg"></i> 
+                                        <span>Thiết kế trực tiếp banner, ấn phẩm truyền thông nhận diện thương hiệu cửa nhôm Xingfa.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-check-circle text-brand-500 mt-1 text-lg"></i> 
+                                        <span>Quản trị và phát triển nội dung mạnh mẽ trên đa nền tảng: <strong>Facebook, YouTube, TikTok</strong>.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-check-circle text-brand-500 mt-1 text-lg"></i> 
+                                        <span>Tư vấn chuyên sâu sản phẩm, hỗ trợ khách hàng và <strong>trực tiếp tham gia chốt hợp đồng</strong>.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Job 2: Tập đoàn Hoàng Quân -->
+                <div class="relative z-10 mb-20 flex md:justify-between items-center w-full left-timeline group" data-aos="fade-up">
+                    <div class="order-1 w-full pl-16 md:pl-0 md:w-5/12 ml-0">
+                        <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300 relative">
+                            <!-- Ảnh bìa -->
+                            <div class="h-32 overflow-hidden relative">
+                                <img src="https://www.hoangquanmekong.com.vn/vnt_upload/weblink/CoverMekongWeb.jpg" alt="Hoàng Quân Banner" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent"></div>
+                            </div>
+                            
+                            <!-- Logo Box -->
+                            <div class="absolute top-20 left-6 md:left-8 z-10 group-hover:-translate-y-1 transition-transform duration-300">
+                                <div class="w-20 h-20 bg-white rounded-2xl shadow-lg border-[3px] border-white flex items-center justify-center overflow-hidden">
+                                    <span class="font-black text-2xl text-yellow-500 tracking-tighter">HQC</span>
+                                </div>
+                            </div>
+                            
+                            <div class="pt-14 pb-6 px-6 md:px-8">
+                                <h4 class="font-black text-gray-900 text-xl mb-1">Tập đoàn Hoàng Quân</h4>
+                                <h3 class="font-bold text-brand-600 text-sm uppercase mb-5">Chuyên viên Marketing - Design</h3>
+                                
+                                <div class="grid grid-cols-2 gap-4 mb-6">
+                                    <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 text-center">
+                                        <i class="fa-solid fa-users text-blue-500 text-2xl mb-2"></i>
+                                        <div class="text-3xl font-black text-gray-800"><span class="counter" data-target="300">0</span></div>
+                                        <div class="text-xs font-bold text-gray-500 uppercase mt-1">Khách Event Offline</div>
+                                    </div>
+                                    <div class="bg-brand-50 border border-brand-100 rounded-xl p-4 text-center">
+                                        <i class="fa-solid fa-arrow-trend-up text-brand-500 text-2xl mb-2"></i>
+                                        <div class="text-3xl font-black text-gray-800">+<span class="counter" data-target="20">0</span>%</div>
+                                        <div class="text-xs font-bold text-gray-500 uppercase mt-1">Followers / Tháng</div>
+                                    </div>
+                                </div>
+
+                                <ul class="space-y-4 text-gray-700 text-[15px] leading-relaxed">
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-check-circle text-brand-500 mt-1 text-lg"></i> 
+                                        <span><strong>Xây dựng & triển khai chiến lược MKT online</strong> cho nhà ở xã hội tập trung vào kênh Facebook, Tiktok và Google Ads.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-check-circle text-brand-500 mt-1 text-lg"></i> 
+                                        <span>Quản lý Fanpage, Website, Tiktok công ty; phân tích số liệu từ <strong>Google Analytics & FB Ads</strong> để báo cáo hàng tuần.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-check-circle text-brand-500 mt-1 text-lg"></i> 
+                                        <span>Tổ chức Marketing offline sự kiện <em>"25 năm thành lập tập đoàn"</em> quy mô 300 khách.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-check-circle text-brand-500 mt-1 text-lg"></i> 
+                                        <span>Viết bài PR, thiết kế toàn bộ <strong>pano, banner, poster, tờ rơi</strong> cho các chiến dịch.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="z-20 flex items-center order-1 bg-brand-600 shadow-[0_0_0_4px_rgba(34,197,94,0.2)] w-14 h-14 rounded-full md:mx-auto absolute left-[4px] md:relative md:left-0 justify-center group-hover:scale-110 group-hover:bg-brand-500 transition-all duration-300">
+                        <i class="fa-solid fa-building text-white text-xl"></i>
+                    </div>
+                    <div class="order-1 md:w-5/12 hidden md:block pl-10">
+                        <p class="text-brand-600 font-black text-2xl">06/2025 - 04/2026</p>
+                        <p class="text-gray-500 font-bold uppercase mt-1">Marketing Bất Động Sản</p>
+                    </div>
+                </div>
+
+                <!-- Job 3: LANA Digital -->
+                <div class="relative z-10 mb-20 flex md:justify-between items-center w-full right-timeline group" data-aos="fade-up">
+                    <div class="order-1 md:w-5/12 hidden md:block text-right pr-10">
+                        <p class="text-brand-600 font-black text-2xl">10/2024</p>
+                        <p class="text-gray-500 font-bold uppercase mt-1">Full Stack Marketing</p>
+                    </div>
+                    <div class="z-20 flex items-center order-1 bg-brand-600 shadow-[0_0_0_4px_rgba(34,197,94,0.2)] w-14 h-14 rounded-full md:mx-auto absolute left-[4px] md:relative md:left-0 justify-center group-hover:scale-110 group-hover:bg-brand-500 transition-all duration-300">
+                        <i class="fa-solid fa-hashtag text-white text-xl"></i>
+                    </div>
+                    
+                    <div class="order-1 w-full pl-16 md:pl-0 md:w-5/12 ml-0">
+                        <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300 relative">
+                            <!-- Bìa Tech/Agency Vibe -->
+                            <div class="h-32 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Agency Background" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent"></div>
+                            </div>
+                            
+                            <!-- Logo LANA rõ nét -->
+                            <div class="absolute top-20 left-6 md:left-8 z-10 group-hover:-translate-y-1 transition-transform duration-300">
+                                <div class="w-20 h-20 bg-white rounded-2xl shadow-lg border-[3px] border-white flex items-center justify-center overflow-hidden">
+                                    <img src="https://lana.digital/wp-content/uploads/2020/03/logo-lana.svg" alt="LANA Digital" class="w-full h-full object-contain p-2">
+                                </div>
+                            </div>
+                            
+                            <div class="pt-14 pb-6 px-6 md:px-8">
+                                <h4 class="font-black text-gray-900 text-xl mb-1">LANA Digital Cần Thơ</h4>
+                                <h3 class="font-bold text-brand-600 text-sm uppercase mb-5">Marketing Full Stack</h3>
+                                
+                                <div class="bg-purple-50 border border-purple-100 rounded-2xl p-4 mb-6 flex items-center gap-4">
+                                    <div class="bg-white p-3 rounded-full shadow-sm text-purple-600">
+                                        <i class="fa-solid fa-mobile-screen-button text-2xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-bold text-gray-500 uppercase mb-1">Chiến dịch MobiFone 5G</p>
+                                        <div class="flex items-center gap-3">
+                                            <span class="text-2xl font-black text-gray-900"><span class="counter" data-target="5">0</span> KOLs</span>
+                                            <span class="bg-purple-200 text-purple-700 text-xs font-bold px-2 py-1 rounded">+<span class="counter" data-target="20">0</span>% Tiếp cận</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <ul class="space-y-4 text-gray-700 text-[15px] leading-relaxed">
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-check-circle text-brand-500 mt-1 text-lg"></i> 
+                                        <span>Lựa chọn và làm việc với 5 KOLs để quảng bá chiến dịch MobiFone 5G, đạt <strong>20% lượng tiếp cận</strong> trên MXH.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-check-circle text-brand-500 mt-1 text-lg"></i> 
+                                        <span>Theo dõi, phân tích số liệu từ các chiến dịch quảng cáo trên Facebook, Google và Email Marketing.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-check-circle text-brand-500 mt-1 text-lg"></i> 
+                                        <span>Đánh giá chi tiết Tiktok Ads (lượt xem, tương tác, click) và đề xuất phương án tối ưu hóa kịp thời.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Job 4: OSOE -->
+                 <div class="relative z-10 mb-20 flex md:justify-between items-center w-full left-timeline group" data-aos="fade-up">
+                    <div class="order-1 w-full pl-16 md:pl-0 md:w-5/12 ml-0">
+                        <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300 relative">
+                            <!-- Bìa cửa hàng -->
+                            <div class="h-32 overflow-hidden relative">
+                                <img src="https://cdn.tgdd.vn/Files/2020/11/16/1307042/5-dia-chi-shop-do-second-hand-dep-hon-ca-hang-hieu-o-tphcm-202201031814333003.jpg" alt="OSOE Banner" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent"></div>
+                            </div>
+                            
+                            <!-- Logo OSOE -->
+                            <div class="absolute top-20 left-6 md:left-8 z-10 group-hover:-translate-y-1 transition-transform duration-300">
+                                <div class="w-20 h-20 bg-white rounded-2xl shadow-lg border-[3px] border-white flex items-center justify-center overflow-hidden">
+                                    <span class="font-black text-xl text-gray-800 tracking-wider">OSOE</span>
+                                </div>
+                            </div>
+                            
+                            <div class="pt-14 pb-6 px-6 md:px-8">
+                                <h4 class="font-black text-gray-900 text-xl mb-1">Cửa hàng OSOE</h4>
+                                <h3 class="font-bold text-brand-600 text-sm uppercase mb-5">Sales & Marketing</h3>
+                                
+                                <div class="flex gap-4 mb-6">
+                                    <div class="flex-1 bg-orange-50 border border-orange-100 rounded-xl p-4 text-center">
+                                        <div class="text-3xl font-black text-gray-800"><span class="counter" data-target="30">0</span> Tr/Th</div>
+                                        <div class="text-xs font-bold text-gray-500 uppercase mt-1">Doanh số cá nhân</div>
+                                    </div>
+                                    <div class="flex-1 bg-gray-50 border border-gray-200 rounded-xl p-4 text-center">
+                                        <div class="text-3xl font-black text-gray-800"><span class="counter" data-target="50">0</span></div>
+                                        <div class="text-xs font-bold text-gray-500 uppercase mt-1">Yêu cầu CSKH / Ngày</div>
+                                    </div>
+                                </div>
+
+                                <ul class="space-y-4 text-gray-700 text-[15px] leading-relaxed">
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-check-circle text-brand-500 mt-1 text-lg"></i> 
+                                        <span>Tư vấn bán hàng, duy trì mức doanh thu cá nhân trung bình <strong>30 triệu/tháng</strong>.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-check-circle text-brand-500 mt-1 text-lg"></i> 
+                                        <span>CSKH chuyên nghiệp: tiếp nhận và xử lý hiệu quả 50 yêu cầu từ khách hàng mỗi ngày.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-check-circle text-brand-500 mt-1 text-lg"></i> 
+                                        <span>Quản lý kho hàng nội bộ và làm báo cáo doanh thu định kỳ một cách chính xác.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="z-20 flex items-center order-1 bg-brand-600 shadow-[0_0_0_4px_rgba(34,197,94,0.2)] w-14 h-14 rounded-full md:mx-auto absolute left-[4px] md:relative md:left-0 justify-center group-hover:scale-110 group-hover:bg-brand-500 transition-all duration-300">
+                        <i class="fa-solid fa-store text-white text-xl"></i>
+                    </div>
+                    <div class="order-1 md:w-5/12 hidden md:block pl-10">
+                        <p class="text-brand-600 font-black text-2xl">2022 - 2024</p>
+                        <p class="text-gray-500 font-bold uppercase mt-1">Sales & CSKH</p>
+                    </div>
+                </div>
+
+                <!-- Job 5: FACESEO -->
+                <div class="relative z-10 flex md:justify-between items-center w-full right-timeline group" data-aos="fade-up">
+                    <div class="order-1 md:w-5/12 hidden md:block text-right pr-10">
+                        <p class="text-brand-600 font-black text-2xl">4 - 8/2023</p>
+                        <p class="text-gray-500 font-bold uppercase mt-1">SEO & Content Intern</p>
+                    </div>
+                    <div class="z-20 flex items-center order-1 bg-brand-600 shadow-[0_0_0_4px_rgba(34,197,94,0.2)] w-14 h-14 rounded-full md:mx-auto absolute left-[4px] md:relative md:left-0 justify-center group-hover:scale-110 group-hover:bg-brand-500 transition-all duration-300">
+                        <i class="fa-solid fa-magnifying-glass-chart text-white text-xl"></i>
+                    </div>
+                    
+                    <div class="order-1 w-full pl-16 md:pl-0 md:w-5/12 ml-0">
+                        <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300 relative">
+                            <!-- Bìa chuyên môn SEO -->
+                            <div class="h-32 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1432888117426-146608230304?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="SEO Banner" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent"></div>
+                            </div>
+                            
+                            <!-- Logo FACESEO rõ nét -->
+                            <div class="absolute top-20 left-6 md:left-8 z-10 group-hover:-translate-y-1 transition-transform duration-300">
+                                <div class="w-20 h-20 bg-white rounded-2xl shadow-lg border-[3px] border-white flex items-center justify-center overflow-hidden">
+                                    <img src="data:image/jpeg;base64,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" alt="FACESEO Logo" class="w-full h-full object-contain p-2">
+                                </div>
+                            </div>
+                            
+                            <div class="pt-14 pb-6 px-6 md:px-8">
+                                <h4 class="font-black text-gray-900 text-xl mb-1">Hệ thống FACESEO</h4>
+                                <h3 class="font-bold text-brand-600 text-sm uppercase mb-5">Thực tập sinh Marketing</h3>
+                                
+                                <div class="bg-brand-50 border border-brand-100 rounded-xl p-4 text-center mb-6">
+                                    <div class="text-sm font-bold text-gray-500 uppercase mb-1">Tăng trưởng tự nhiên</div>
+                                    <div class="text-3xl font-black text-brand-600">+<span class="counter" data-target="15">0</span>% Follower</div>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5 mt-3">
+                                        <div class="bg-brand-500 h-1.5 rounded-full stat-bar" style="--target-width: 85%"></div>
+                                    </div>
+                                </div>
+
+                                <ul class="space-y-4 text-gray-700 text-[15px] leading-relaxed">
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-check-circle text-brand-500 mt-1 text-lg"></i> 
+                                        <span>Triển khai hiệu quả <strong>3 chiến dịch quảng cáo</strong> trên Facebook và Instagram.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-check-circle text-brand-500 mt-1 text-lg"></i> 
+                                        <span>Viết bài chuẩn SEO, tối ưu nội dung website giúp cải thiện rõ rệt thứ hạng từ khóa.</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-check-circle text-brand-500 mt-1 text-lg"></i> 
+                                        <span>Nghiên cứu thị trường và đối thủ cạnh tranh để hỗ trợ đưa ra đề xuất chiến lược.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section with Animated Cap -->
+    <section id="education" class="py-24 bg-white border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-brand-600 font-bold tracking-wider uppercase text-sm mb-2 block">Nền tảng tri thức</span>
+                <h2 class="text-3xl md:text-5xl font-black text-gray-900 mb-4">Học Vấn & Nghiên Cứu</h2>
+                <div class="w-24 h-1.5 bg-brand-600 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Education Card with Lottie/CSS Animation -->
+                <div class="bg-gradient-to-br from-brand-50 to-white border border-brand-100 p-10 rounded-3xl relative overflow-hidden shadow-sm hover:shadow-lg transition-all" data-aos="fade-right">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-100 rounded-bl-full opacity-50"></div>
+                    
+                    <!-- Khối Animation Hoạt hình Tốt nghiệp -->
+                    <div class="relative w-36 h-36 mb-6">
+                        <!-- Nhân vật (không có nón) -->
+                        <img src="https://cdn-icons-png.flaticon.com/512/4214/4214081.png" alt="Graduate" class="w-full h-full object-contain relative z-10" />
+                        <!-- Nón Tốt nghiệp với hiệu ứng CSS bay lơ lửng -->
+                        <i class="fa-solid fa-graduation-cap text-5xl text-gray-800 absolute top-4 left-1/2 -translate-x-1/2 z-20 animate-toss-cap drop-shadow-md"></i>
+                    </div>
+
+                    <h3 class="text-2xl font-black text-gray-900 mb-1 relative z-10">Đại học FPT Cần Thơ</h3>
+                    <p class="text-brand-600 font-bold text-lg mb-4 uppercase relative z-10">Cử nhân Digital Marketing</p>
+                    <div class="inline-flex items-center text-brand-700 bg-brand-100/50 px-3 py-1 rounded-lg text-sm font-bold mb-6 relative z-10">
+                        <i class="fa-regular fa-calendar-days mr-2"></i> 2020 - 2024
+                    </div>
+                </div>
+
+                <!-- Research Card -->
+                <div class="bg-gray-900 p-10 rounded-3xl relative overflow-hidden group hover:shadow-2xl transition-all" data-aos="fade-left">
+                    <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#22c55e 1px, transparent 1px); background-size: 20px 20px;"></div>
+                    <div class="flex justify-between items-start mb-6 relative z-10">
+                        <div class="w-16 h-16 bg-brand-500 rounded-2xl flex items-center justify-center shadow-lg">
+                            <i class="fa-solid fa-microscope text-3xl text-white"></i>
+                        </div>
+                        <span class="bg-white/10 text-white text-xs font-bold px-4 py-1.5 rounded-full border border-white/20">8/2024</span>
+                    </div>
+                    <h3 class="text-2xl font-black text-white mb-2 relative z-10">Công bố Khoa Học Quốc Tế</h3>
+                    
+                    <div class="bg-white/5 p-5 rounded-2xl border-l-4 border-brand-500 mb-6 z-10 relative backdrop-blur-sm">
+                        <h4 class="font-bold text-brand-400 text-xs mb-2 uppercase tracking-wider">Hội thảo ICF Singapore</h4>
+                        <p class="text-gray-300 text-[15px] font-medium italic leading-relaxed">"Tác động của Tiếp thị xanh và Truyền thông xã hội đến ý định mua sản phẩm bền vững của giới trẻ Việt Nam."</p>
+                    </div>
+                    
+                    <div class="inline-flex items-center text-sm font-black text-gray-900 bg-brand-400 px-4 py-2 rounded-xl relative z-10 shadow-lg">
+                        <i class="fa-solid fa-medal mr-2"></i> Tạp chí Q4, ICAEB2024
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-gray-900 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0" style="background-image: radial-gradient(#22c55e 1px, transparent 1px); background-size: 30px 30px;"></div>
+        </div>
+        <div class="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-brand-500 rounded-full mix-blend-screen filter blur-[100px] opacity-30 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-5xl font-black text-white mb-6">Sẵn sàng tạo bứt phá?</h2>
+                <div class="w-24 h-1.5 bg-brand-500 mx-auto rounded-full mt-8"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <a href="tel:0879523627" class="bg-gray-800/80 backdrop-blur-sm p-8 rounded-3xl border border-gray-700 hover:border-brand-500 hover:bg-gray-800 hover:-translate-y-2 transition-all duration-300 text-center block shadow-2xl">
+                    <div class="w-16 h-16 bg-gray-700 rounded-2xl flex items-center justify-center mx-auto mb-6 text-brand-400 text-2xl"><i class="fa-solid fa-phone"></i></div>
+                    <p class="font-black text-xl">0879 523 627</p>
+                </a>
+                <a href="https://zalo.me/0879523627" target="_blank" class="bg-gray-800/80 backdrop-blur-sm p-8 rounded-3xl border border-gray-700 hover:border-blue-500 hover:bg-gray-800 hover:-translate-y-2 transition-all duration-300 text-center block shadow-2xl">
+                    <div class="w-16 h-16 bg-gray-700 rounded-2xl flex items-center justify-center mx-auto mb-6 text-blue-400 text-2xl"><i class="fa-solid fa-comment-dots"></i></div>
+                    <p class="font-black text-xl">Zalo Chat</p>
+                </a>
+                <a href="mailto:cangnguyen05082002@gmail.com" class="bg-gray-800/80 backdrop-blur-sm p-8 rounded-3xl border border-gray-700 hover:border-red-500 hover:bg-gray-800 hover:-translate-y-2 transition-all duration-300 text-center block shadow-2xl">
+                    <div class="w-16 h-16 bg-gray-700 rounded-2xl flex items-center justify-center mx-auto mb-6 text-red-400 text-2xl"><i class="fa-solid fa-envelope"></i></div>
+                    <p class="font-bold text-sm">cangnguyen0508<br>@gmail.com</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-gray-500 text-sm font-medium mb-4 md:mb-0">
+                &copy; 2026 Nguyễn Thanh Cang. Built with Data & Passion.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 100, duration: 800 });
+        
+        // Mobile Menu
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => { menu.classList.toggle('hidden'); });
+        
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.remove('border-gray-100');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.add('border-gray-100');
+            }
+        });
+
+        // Đếm số tự động (Number Counter Animation)
+        const counters = document.querySelectorAll('.counter');
+        const speed = 100; // Tốc độ chạy
+
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    const inc = target / speed;
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 20);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            });
+        }
+
+        // Kích hoạt animation khi cuộn chuột tới
+        const observerOptions = { threshold: 0.5 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Kích hoạt Counter
+                    if(entry.target.querySelectorAll('.counter').length > 0) {
+                         animateCounters();
+                    }
+                    
+                    // Kích hoạt Bar Chart
+                    const bars = entry.target.querySelectorAll('.stat-bar');
+                    bars.forEach(bar => {
+                        if (bar.style.getPropertyValue('--target-height')) {
+                            bar.classList.add('animate-grow-up');
+                        }
+                        if (bar.style.getPropertyValue('--target-width')) {
+                            bar.classList.add('animate-fill-bar');
+                        }
+                    });
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section, .skill-bar-container, .bg-white').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
